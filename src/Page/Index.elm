@@ -8,6 +8,8 @@ import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import Shared
 import View exposing (View)
+import W3.Html exposing (Event, div, node, on, text)
+import W3.Html.Attributes exposing (attribute, class)
 
 
 type alias Model =
@@ -66,4 +68,11 @@ view :
     -> StaticPayload Data RouteParams
     -> View Msg
 view maybeUrl sharedModel static =
-    View.placeholder "Zine (Index page)"
+    node "custom-editor"
+        [ attribute "state" "editing"
+        , attribute "release" "<p>Edit this! You can also paste Html here.</p>"
+        , attribute "format" ""
+        ]
+        []
+        |> W3.Html.toNode
+        |> (\html -> { title = "Zine", body = [ html ] })
