@@ -41,12 +41,11 @@ customElements.define('custom-editor',
           super();
 
           this.field = document.createElement("article");
-          this.field.tabIndex = 0;
 
           this.squire = new Squire(this.field, {
               blockTag: 'p'
           });
-          this.replacement = document.createElement("article");
+          this.preview = document.createElement("article");
 
           this.squire.addEventListener("pathChange", e => {
               let caret = new CustomEvent("caret", {
@@ -56,7 +55,7 @@ customElements.define('custom-editor',
                       id: this.id
                   }
               });
-              this.editor.dispatchEvent(caret);
+              this.dispatchEvent(caret);
           })
 
           this.squire.addEventListener("input", e => {
@@ -66,7 +65,7 @@ customElements.define('custom-editor',
                       id: this.id
                   }
               });
-              this.editor.dispatchEvent(draft);
+              this.dispatchEvent(draft);
           })
       }
 
@@ -75,13 +74,15 @@ customElements.define('custom-editor',
       }
 
       connectedCallback() {
-          this.reflectState();
+          //this.reflectState("connected callback", this.id);
 
       }
       disconnectedCallback() {
-          this.innerHTML = "";
+          console.log ("-------", this.id, "was disconnected from the DOM")
+          //this.innerHTML = "";
       }
       attributeChangedCallback(attr, oldVal, newVal) {
+        console.log ("-------", this.id, "changed", attr, "from", oldVal, "to", newVal)
           let doCommand = (command) => {
               switch (command) {
                   case "increaseLevel":
@@ -143,28 +144,37 @@ customElements.define('custom-editor',
 
           switch (attr) {
               case 'state':
-                  this.reflectState();
+                  this.reflectState('state changed');
                   break;
               case 'release':
-                  if (this.squire) this.squire.setHTML(newVal);
+                  console.log (this.getAttribute('state'));
+                  if (this.getAttribute('state') === "done")
+                    this.preview.innerHTML = newVal;
+                  else if (this.squire) this.squire.setHTML(newVal);
                   break;
               case 'format':
                   if (newVal != "") doCommand(newVal);
           }
       }
-      reflectState() {
+      reflectState(origin) {
+          console.log("____________________________________")
+          console.log(origin)
+          console.log("state:", this.getAttribute('state'))
+          console.log("release:", this.getAttribute('release'))
+          
           if (this.hasAttribute('state') && this.getAttribute('state') == 'editing') {
-              if (this.contains(this.replacement)) this.removeChild(this.replacement);
+              if (this.contains(this.preview)) this.removeChild(this.preview);
               if (!this.contains(this.field)) this.appendChild(this.field);
           } else {
               if (this.contains(this.field))
                   this.removeChild(this.field);
-              if (this.replacement && !this.contains(this.replacement)) {
+              if (this.preview && !this.contains(this.preview)) {
                   if (this.hasAttribute("release"))
-                      this.replacement.innerHTML = this.getAttribute("release");
-                  this.appendChild(this.replacement);
+                      this.preview.innerHTML = this.getAttribute("release");
+                  this.appendChild(this.preview);
               }
           }
+          
       }
       get draft() {
           return this.squire.getHTML();

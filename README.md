@@ -55,8 +55,27 @@ Viola, our MVP ;-)
 
 The following ideas will need to evolve from testing the MVP
 
-- Avatars and restricted access
-- Image editing: background removal, color correction, perspective manipulation
-- Localized live sound sharing (like in [gather.town](https://gather.town/app/5Wp6ebk3fOGv9Uuo/SHELL), but without the video)
-- Stories, curated paths through the tiles
 - Distributed server (each client takes somee hosting duty, so that we don't need a central server any more)
+- Transclusions (selections from one zine appear in another)
+- Image editing: background removal, color correction, perspective manipulation
+- Avatars
+- Localized live sound sharing (like in [gather.town](https://gather.town/app/5Wp6ebk3fOGv9Uuo/SHELL), but without the video)
+- Time Travel
+- Stories, curated paths through the tiles
+- Signature (to get in touch with specific people)
+
+
+-----------------------
+
+
+
+
+# Implementation
+
+## Toolbar
+
+There is a single toolbar on screen, with automatically assigned shortcuts. Any focused item can add a sub-toolbar. Duplicate toolbar actions from different items merge and will simultaneously affect both items. 
+
+## Keyboard Input
+
+`Enter`: Do the 'default' action. For example, when a tile is focused, Enter makes it editable, restoring its previous cursor. During editing, Enter would add paragraphs.
