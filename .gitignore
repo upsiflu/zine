@@ -2,5 +2,6 @@ node_modules/
 elm-stuff/
 dist/
 .elm-pages/
-public/
+public/js/
+public/index.js
 functions/render/elm-pages-cli.js
