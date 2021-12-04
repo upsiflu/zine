@@ -3,6 +3,8 @@
 
 This is Zine, a little  experimental app for creating and infinite collages of editable hypertext blocks.
 
+**For experiments with a sample frontend that uses a firestore database in lieu of the planned p2p backend, check out [zine-store](https://github.com/upsiflu/zine-store).**
+
 ### Scope and Target Groups
 
 Part of the research about "Shells", the MVP's intended application is to host a living archive of the first [Shell Congress](shellcongress.com). Building on that, we envision to continue our research on Shells in tandem with the further development of the Zine codebase.
