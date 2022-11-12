@@ -5,3 +5,4 @@ dist/
 public/js/
 public/index.js
 functions/render/elm-pages-cli.js
+.DS_Store
