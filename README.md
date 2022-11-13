@@ -3,7 +3,7 @@
 
 This is Zine, a little  experimental app for creating and infinite collages of editable hypertext blocks.
 
-[Check out the current design considerations](DESIGN.md)
+[Check out the current design considerations](https://github.com/upsiflu/zine/wiki)
 
 **For experiments with a sample frontend that uses a firestore database in lieu of the planned p2p backend, check out [zine-store](https://github.com/upsiflu/zine-store).**
 
